@@ -1,24 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import P5Canvas from './P5Canvas';
+import linkedList from './sketches/linkedList'
+import binaryTree from './sketches/binaryTree'
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Skills Demo</h1>
+      <P5Canvas title="Linked List" id="linkedList" sketch={linkedList} />
+      <P5Canvas title="Binary Tree" id="binaryTree" sketch={binaryTree} />
+
     </div>
   );
 }
