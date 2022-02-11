@@ -20,7 +20,7 @@ Nodes.push(a, b, c, d)
 
 
 export default function sketch(p5: P5) {
-  const canvasWidth = 0.8 // 70% of screen with
+  const canvasWidth = 0.9 // 70% of screen with
   const nodeSpacing = 0.25 // 20% of screen with
 
   let infoPanel: P5.Element
