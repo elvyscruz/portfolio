@@ -5,28 +5,61 @@ class Node {
   }
 }
 
+const Nodes: Node[] = []
+
+const a = new Node('Fox')
+const b = new Node('Dog')
+const c = new Node('Cat')
+const d = new Node('Bee')
+
+a.next = b
+b.next = c
+c.next = d
+
+Nodes.push(a, b, c, d)
+
 
 export default function sketch(p5: P5) {
-  const canvasWidth = 0.8 // 70% of screen with
+  const canvasWidth = 0.6 // 70% of screen with
   const nodeSpacing = 0.25 // 20% of screen with
 
+  let infoPanel: P5.Element
 
   p5.setup = function () {
     p5.createCanvas(p5.windowWidth * canvasWidth, 200).parent('linkedList')
     p5.textAlign(p5.CENTER, p5.CENTER)
-    p5.textStyle(p5.BOLD)
+    // p5.textStyle(p5.BOLD)
     p5.rectMode(p5.CENTER)
     p5.noLoop()
+
+    infoPanel = p5.createDiv('Click Nodes for more info...')
+    // infoPanel.style('text-align:center')
 
   }
   p5.draw = function () {
     p5.background("yellow")
-    linkedList.dislayNodes(a)
+    p5.textSize(p5.width * 0.03)
 
+    linkedList.dislayNodes(a)
 
   }
   p5.windowResized = function () {
     p5.resizeCanvas(this.windowWidth * canvasWidth, 200)
+  }
+
+  p5.mousePressed = function () {
+    const nodeSize = (p5.width * 0.08)
+    Nodes.forEach((node) => {
+      if (p5.dist(node.x, node.y, p5.mouseX, p5.mouseY) < nodeSize) {
+        infoPanel.html(`Node <strong>value</strong> is <strong>${node.value}</strong>,&nbsp;&nbsp; ${node.value}<strong>.next </strong> is <strong>${node.next?.value ?? 'null'}</storng>`)
+        p5.redraw()
+        p5.push()
+        p5.fill('cyan')
+        p5.rect(node.x, node.y, nodeSize)
+        p5.pop()
+        p5.text(node.value, node.x, node.y)
+      }
+    })
   }
 
   // LinkedList Object
@@ -39,7 +72,7 @@ export default function sketch(p5: P5) {
       let counter = 0
       let prevX: number = 0
 
-      let nodeSize = p5.width * 0.1
+      let nodeSize = p5.width * 0.08
       let offset = p5.width * 0.07 // offset position for first node
 
       // traverse linkedList
@@ -70,14 +103,8 @@ export default function sketch(p5: P5) {
     }
   }
 
-  const a = new Node('A')
-  const b = new Node('B')
-  const c = new Node('C')
-  const d = new Node('D')
 
-  a.next = b
-  b.next = c
-  c.next = d
+
 
 
 }
