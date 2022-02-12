@@ -20,13 +20,14 @@ Nodes.push(a, b, c, d)
 
 
 export default function sketch(p5: P5) {
-  const canvasWidth = 0.9 // 70% of screen with
+  // const canvasWidth = 1 // 70% of screen with
   const nodeSpacing = 0.25 // 20% of screen with
 
   let infoPanel: P5.Element
 
   p5.setup = function () {
-    p5.createCanvas(p5.windowWidth * canvasWidth, 200).parent('linkedList')
+    const appSize = p5.select('#App')?.size() as any
+    p5.createCanvas(appSize.width, 200).parent('linkedList')
     p5.textAlign(p5.CENTER, p5.CENTER)
     // p5.textStyle(p5.BOLD)
     p5.rectMode(p5.CENTER)
@@ -44,7 +45,8 @@ export default function sketch(p5: P5) {
 
   }
   p5.windowResized = function () {
-    p5.resizeCanvas(this.windowWidth * canvasWidth, 200)
+    const appSize = p5.select('#App')?.size() as any
+    p5.resizeCanvas(appSize.width, 200)
   }
 
   p5.mousePressed = function () {
