@@ -91,28 +91,6 @@ export default function sketch(p5: P5) {
   }
 
 
-  p5.mouseMoved = function () {
-
-    const nodeSize = (p5.width * 0.08) // node size
-    p5.cursor(p5.ARROW)
-    Nodes.forEach((node) => {
-
-      // Check click is within rect box
-      if (
-        p5.mouseX > node.x - (nodeSize / 2) &&
-        p5.mouseX < node.x + (nodeSize / 2) + nodeSize &&
-        p5.mouseY > node.y - (nodeSize / 2) &&
-        p5.mouseY < node.y + (nodeSize / 2)
-
-      ) {
-        p5.cursor(p5.HAND)
-      }
-    })
-
-  }
-
-
-
   // LinkedList Object
   const linkedList = {
 
