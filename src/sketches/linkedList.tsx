@@ -59,31 +59,16 @@ export default function sketch(p5: P5) {
   p5.mousePressed = function () {
     const nodeSize = (p5.width * 0.08) // node size
 
-    let prev: Node // Get reference for prev node
-
     // Loop through all the nodes
     Nodes.forEach((node) => {
-      if (p5.dist(node.x, node.y, p5.mouseX, p5.mouseY) < nodeSize * 0.5) { // If mouse click is inside node
-        infoPanel.html(`Node <strong>value</strong> is <strong>${node.value}</strong>,&nbsp;&nbsp; ${node.value}<strong>.next </strong> is <strong>${node.next?.value ?? 'null'}</storng>`)
-        p5.redraw()
-        p5.push()
-        p5.fill('cyan')
-        p5.rect(node.x, node.y, nodeSize * 0.9)
-        p5.pop()
-        p5.text(node.value, node.x, node.y)
+      // Check click is within rect box
+      if (
+        p5.mouseX > node.x - (nodeSize / 2) &&
+        p5.mouseX < node.x + (nodeSize / 2) + nodeSize &&
+        p5.mouseY > node.y - (nodeSize / 2) &&
+        p5.mouseY < node.y + (nodeSize / 2)
 
-        // If there is a previous node, fill colour previous.next
-        if (prev) {
-          p5.push()
-          p5.fill('cyan')
-          p5.circle(prev.x + nodeSize, prev.y, nodeSize * 0.5) // Draw a circle
-          p5.pop()
-
-        }
-
-      }
-      // handle click on node.next
-      if (p5.dist(node.x + nodeSize, node.y, p5.mouseX, p5.mouseY) < nodeSize * 0.5) {
+      ) {
         p5.redraw()
         p5.push()
         p5.fill(255, 204, 0)
@@ -101,9 +86,31 @@ export default function sketch(p5: P5) {
 
       }
 
-      prev = node
+
     })
   }
+
+
+  p5.mouseMoved = function () {
+
+    const nodeSize = (p5.width * 0.08) // node size
+    p5.cursor(p5.ARROW)
+    Nodes.forEach((node) => {
+
+      // Check click is within rect box
+      if (
+        p5.mouseX > node.x - (nodeSize / 2) &&
+        p5.mouseX < node.x + (nodeSize / 2) + nodeSize &&
+        p5.mouseY > node.y - (nodeSize / 2) &&
+        p5.mouseY < node.y + (nodeSize / 2)
+
+      ) {
+        p5.cursor(p5.HAND)
+      }
+    })
+
+  }
+
 
 
   // LinkedList Object
@@ -148,7 +155,5 @@ export default function sketch(p5: P5) {
   }
 
 
-
-
-
 }
+
