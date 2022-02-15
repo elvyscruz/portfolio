@@ -48,6 +48,7 @@ export default function sketch(p5: P5) {
     p5.textSize(p5.width * 0.03) // text size will depend on screen width
     linkedList.dislayNodes(a) // Traverse and Display nodes starting from head 
 
+
   }
   // Window resize function
   p5.windowResized = function () {
@@ -88,6 +89,35 @@ export default function sketch(p5: P5) {
 
 
     })
+  }
+
+  p5.mouseMoved = function () {
+
+    p5.cursor(this.ARROW)
+
+    if (checkNodeBounds()) {
+      p5.cursor(p5.HAND)
+    }
+
+  }
+
+  function checkNodeBounds(): boolean {
+    const nodeSize = (p5.width * 0.08) // node size
+
+    let current = a
+    // console.log(p5.cursor)
+    while (current !== null) {
+      if (
+        p5.mouseX > current.x - nodeSize / 2 &&
+        p5.mouseX < current.x + nodeSize / 2 + nodeSize &&
+        p5.mouseY > current.y - nodeSize / 2 &&
+        p5.mouseY < current.y + nodeSize / 2
+      ) {
+        return true
+      }
+      current = current.next!
+    }
+    return false
   }
 
 
