@@ -36,7 +36,7 @@ export default function sketch(p5: P5) {
 
     p5.beginShape()
 
-    for (let x = 0; x <= p5.width; x += 8) {
+    for (let x = 0; x <= p5.width; x += 5) {
       y = p5.noise(offset) * p5.height + 50
       p5.vertex(x, y)
       offset += inc
