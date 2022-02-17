@@ -23,12 +23,24 @@ c.next = d
 // Push nodes to Array
 Nodes.push(a, b, c, d)
 
+const reverseList = (head: Node, prev: Node | null = null): Node => {
+  if (head === null) return prev!
+  let next: Node = head.next!
+  head.next = prev
+  return reverseList(next, head!)
+
+}
+
+let headNode: Node = a
 
 // export p5 sketch
 export default function sketch(p5: P5) {
   const nodeSpacing = 0.25 // 20% of screen with
 
   let infoPanel: P5.Element // Create html element
+  let btnReverse: P5.Element
+
+
 
   // P5 sketch setup function
   p5.setup = function () {
@@ -39,14 +51,20 @@ export default function sketch(p5: P5) {
     p5.noLoop()
 
     infoPanel = p5.createDiv('Click Nodes for more info...')
-
+    btnReverse = p5.createButton('Reverse List')
+    btnReverse.style('margin-top:10px')
+    btnReverse.mousePressed(() => {
+      headNode = reverseList(headNode)
+      p5.redraw()
+      infoPanel.html('Click Nodes for more info...')
+    })
   }
 
   // P5 draw function
   p5.draw = function () {
     p5.background("yellow") // set background color
     p5.textSize(p5.width * 0.03) // text size will depend on screen width
-    linkedList.dislayNodes(a) // Traverse and Display nodes starting from head 
+    linkedList.dislayNodes(headNode) // Traverse and Display nodes starting from head 
 
 
   }
@@ -104,7 +122,7 @@ export default function sketch(p5: P5) {
   function checkNodeBounds(): boolean {
     const nodeSize = (p5.width * 0.08) // node size
 
-    let current = a
+    let current = headNode
     // console.log(p5.cursor)
     while (current !== null) {
       if (
