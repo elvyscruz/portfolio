@@ -50,8 +50,8 @@ export default function sketch(p5: P5) {
     p5.rectMode(p5.CENTER)
     p5.noLoop()
 
-    infoPanel = p5.createDiv('Click Nodes for more info...')
-    btnReverse = p5.createButton('Reverse List')
+    infoPanel = p5.createDiv('Click Nodes for more info...').parent('#linkedList')
+    btnReverse = p5.createButton('Reverse List').parent('#linkedList')
     btnReverse.style('margin-top:10px')
     btnReverse.mousePressed(() => {
       headNode = reverseList(headNode)
@@ -62,7 +62,7 @@ export default function sketch(p5: P5) {
 
   // P5 draw function
   p5.draw = function () {
-    p5.background("yellow") // set background color
+    p5.background("#f8f8f8") // set background color
     p5.textSize(p5.width * 0.03) // text size will depend on screen width
     linkedList.dislayNodes(headNode) // Traverse and Display nodes starting from head 
 

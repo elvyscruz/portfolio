@@ -22,7 +22,7 @@ function LinkedList(props: Props) {
   return (
 
     <div id={props.id}>
-      <h3>{props.title}</h3>
+      <h2>{props.title}</h2>
     </div>
   )
 }
