@@ -6,6 +6,8 @@ let start = 0
 let offset = 0
 let inc = 0.01
 
+let infoPanel: P5.Element
+let btnReset: P5.Element
 
 
 // export p5 sketch
@@ -16,6 +18,13 @@ export default function sketch(p5: P5) {
     const appSize = p5.select('#App')?.size() as any // Canvas dive parent size
     p5.createCanvas(appSize.width, 200).parent('terrainGenerator') // Create Canvas
     p5.noFill()
+
+    infoPanel = p5.createDiv('Click to make terrain more bumpy').parent('#terrainGenerator')
+    btnReset = p5.createButton('Reset Terrain').parent('#terrainGenerator')
+    btnReset.style('margin-top:10px')
+    btnReset.mousePressed(() => {
+      inc = 0.01
+    })
 
   }
 
@@ -49,6 +58,12 @@ export default function sketch(p5: P5) {
   p5.windowResized = function () {
     const appSize = p5.select('#App')?.size() as any // get Canvas div parent size
     p5.resizeCanvas(appSize.width, 200) // resize canvas to div
+  }
+
+  p5.mousePressed = function () {
+
+    inc += 0.01
+
   }
 
 
