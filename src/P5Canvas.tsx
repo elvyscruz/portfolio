@@ -17,7 +17,7 @@ function LinkedList(props: Props) {
       return () => {
         s.remove()
       }
-    }, [])
+    }, [props.sketch])
 
   return (
 

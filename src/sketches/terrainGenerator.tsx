@@ -4,10 +4,10 @@ import P5 from 'p5';
 let y: number
 let start = 0
 let offset = 0
-let inc = 0.01
 
-let infoPanel: P5.Element
-let btnReset: P5.Element
+
+
+let slider: P5.Element
 
 
 // export p5 sketch
@@ -19,12 +19,8 @@ export default function sketch(p5: P5) {
     p5.createCanvas(appSize.width, 200).parent('terrainGenerator') // Create Canvas
     p5.noFill()
 
-    infoPanel = p5.createDiv('Click to make terrain more bumpy').parent('#terrainGenerator')
-    btnReset = p5.createButton('Reset Terrain').parent('#terrainGenerator')
-    btnReset.style('margin-top:10px')
-    btnReset.mousePressed(() => {
-      inc = 0.01
-    })
+    p5.createDiv('Slide right for bumpy terrain').parent('#terrainGenerator')
+    slider = p5.createSlider(0.005, 0.05, 0.01, 0.01).parent('#terrainGenerator')
 
   }
 
@@ -39,7 +35,7 @@ export default function sketch(p5: P5) {
     for (let x = 0; x <= p5.width; x += 5) {
       y = p5.noise(offset) * p5.height + 50
       p5.vertex(x, y)
-      offset += inc
+      offset += Number(slider.value())
       if (x === 200) {
         p5.push()
         p5.fill("white")
@@ -50,7 +46,7 @@ export default function sketch(p5: P5) {
     }
     p5.endShape()
 
-    start += inc
+    start += Number(slider.value())
 
   }
 
@@ -60,11 +56,6 @@ export default function sketch(p5: P5) {
     p5.resizeCanvas(appSize.width, 200) // resize canvas to div
   }
 
-  p5.mousePressed = function () {
-
-    inc += 0.01
-
-  }
 
 
 }
