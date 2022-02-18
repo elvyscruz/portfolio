@@ -5,7 +5,9 @@ export default function sketch(p5: P5) {
   const balls: Ball[] = []
 
   let gravitySlider: P5.Element
-  // let massSlider: P5.Element
+  let windSlider: P5.Element
+  let gravityValue: P5.Vector
+  let windValue: P5.Vector
   // let accSlider: P5.Element
 
   class Ball {
@@ -15,12 +17,17 @@ export default function sketch(p5: P5) {
     vel = p5.createVector(0, 0.0)
     acc = p5.createVector(0, 0)
     gravity = p5.createVector(0, 0.000001 * this.mass)
+    wind = p5.createVector(0, 0)
     color = p5.color('#f8f8f8')
 
 
     update() {
-      this.acc.add(p5.createVector(0, Number(gravitySlider.value()) * this.mass))
+      gravityValue = p5.createVector(0, Number(gravitySlider.value()) * this.mass)
+      windValue = p5.createVector(Number(windSlider.value()), 0)
+
+      this.acc.add(gravityValue)
       this.vel.add(this.acc)
+      this.vel.add(windValue)
       this.pos.add(this.vel)
 
       p5.fill(this.color)
@@ -28,7 +35,13 @@ export default function sketch(p5: P5) {
       if (this.pos.y > p5.height) {
         this.acc.mult(0)
         this.vel.mult(0)
+        this.wind.mult(0)
         this.pos.y = 0;
+      }
+
+      if (this.pos.x > p5.width) {
+        this.wind.mult(0)
+        this.pos.x = 0;
       }
 
     }
@@ -41,12 +54,15 @@ export default function sketch(p5: P5) {
     const appSize = p5.select('#App')?.size() as any // Canvas dive parent size
     p5.createCanvas(appSize.width, 200).parent('gravity') // Create Canvas
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 50; i++) {
       balls.push(new Ball())
     }
 
-    p5.createDiv('Gravity Force').parent('gravity')
-    gravitySlider = p5.createSlider(0.0000007, 0.00003, 0.000005, 0.000001).parent('gravity')
+    p5.createDiv().id('gravityInputs').parent('gravity')
+    p5.createSpan('Gravity').parent('gravityInputs')
+    gravitySlider = p5.createSlider(0.0000007, 0.00003, 0.000005, 0.000001).parent('gravityInputs')
+    p5.createSpan('Wind').parent('gravityInputs')
+    windSlider = p5.createSlider(0, 0.009, 0, 0.001).parent('gravityInputs')
 
   }
 

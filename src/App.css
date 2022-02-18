@@ -3,3 +3,11 @@
   width: 100%;
 }
 
+input {
+  margin-right: 20px;
+}
+
+#gravityInputs {
+  display: flex;
+}
+
