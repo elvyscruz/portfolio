@@ -10,7 +10,7 @@ class Node {
 const Nodes: Node[] = []
 
 // Create some nodes
-const a = new Node('Fox')
+const a = new Node('Bird')
 const b = new Node('Dog')
 const c = new Node('Cat')
 const d = new Node('Bee')
@@ -90,11 +90,11 @@ export default function sketch(p5: P5) {
       ) {
         p5.redraw()
         p5.push()
-        p5.fill(255, 204, 0)
+        p5.fill('#d8d8d8')
         p5.rect(node.next?.x!, node.next?.y!, nodeSize)
         p5.circle(node.x + nodeSize, node.y, nodeSize * 0.5)
 
-        p5.fill('cyan')
+        p5.fill('#a8e8e8')
         p5.rect(node.x, node.y, nodeSize * 0.9)
         p5.fill('black')
         //p5.stroke('black')
